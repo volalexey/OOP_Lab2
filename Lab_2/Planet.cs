@@ -14,7 +14,14 @@
         public PlanetType Type
         {
             get => _type;
-            set => _type = value;
+            set
+            {
+                if (!Enum.IsDefined(typeof(PlanetType), value))
+                {
+                    throw new ArgumentException("Invalid planet type. Must be 0-3.");
+                }
+                _type = value;
+            }
         }
         public string Name
         {
@@ -69,9 +76,6 @@
             }
         }
         public double DistanceTraveled => OrbitalSpeed * Age * 60 * 60 * 24 * 365;
-        //{
-        //    get => OrbitalSpeed * Age * 60 * 60 * 24 * 365;
-        //}
 
         public Planet(PlanetType type, string name, double mass, double radius, double distanceFromSun, bool hasLife)
         {
@@ -83,6 +87,18 @@
             HasLife = hasLife;
             Age = 0;
         }
+
+        public Planet()
+        {
+            Type = PlanetType.Terrestrial;
+            Name = "";
+            Mass = 1;
+            Radius = 1;
+            DistanceFromSun = 0;
+            HasLife = false;
+            Age = 0;
+        }
+
         public double GetGravity() => CalculateGravity();
 
         private double CalculateGravity()

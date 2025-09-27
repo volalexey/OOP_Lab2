@@ -56,9 +56,22 @@ namespace Lab_1
             int choice = InputHelper.GetIntValue("Choose: ", "Invalid.", 1, 2);
             if (choice == 1)
             {
-                var planet = new Planet(PlanetType.Terrestrial, "Temp", 1, 1, 1, false);
+                var planet = new Planet();
 
-                planet.Type = (PlanetType)InputHelper.GetIntValue("Choose planet type: 0 - Terrestrial, 1 - GasGiant, 2 - IceGiant, 3 - Dwarf", "Invalid choice.", 0, 3);
+                while (true)
+                {
+                    try
+                    {
+                        Console.Write("Choose planet type (0 - Terrestrial, 1 - GasGiant, 2 - IceGiant, 3 - Dwarf): ");
+                        int typeInt = int.Parse(Console.ReadLine()!);
+                        planet.Type = (PlanetType)typeInt;
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
+                    }
+                }
 
                 while (true)
                 {
